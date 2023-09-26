@@ -28,6 +28,13 @@
 </p>
 
 <p>
+  <strong>
+    Genres:
+  </strong>
+  <%= movie.genres.map(&:name).join(", ") %>
+</p>
+
+<p>
   <strong>Production Company: </strong>
   <%= link_to movie.production_company.name, movie.production_company %>
 </p>

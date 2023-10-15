@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RailsAtMovies2023</title>
+    <title><%= yield(:html_title) + "-" if content_for?(:html_title) %>Top 100 Movies</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   </head>
 
   <body>
-    <%= yield %>
+    <section class="section">
+      <div class="container">
+        <h1 class="title is-1">Top Movies From IMDB</h1>
+        <%= form_with(url:search_movies_path, method: :get, local: true) do %>
+          <%= text_field_tag(:keywords, nil, class: "input", placeholder: 'Search for Movies') %>
+          <%= submit_tag("Search", class: "button is-primary")  %>
+        <% end %>
+      </div>
+      <%= yield %>
+    </section>
+    <% if controller_name == 'home' %>
+      <p>There is no place like home🏡</p>
+    <% else %>
+      <%= render partial: "layouts/components/footer" %>
+    <% end %>
   </body>
 </html>
